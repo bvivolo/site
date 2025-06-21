@@ -85,12 +85,12 @@
                             <h5 class="mt-4">Overview</h5>
                             <p class="mb-4">I took on the task of rewriting a legacy engineering calculator used by our team to evaluate and recommend product configurations. The original tool was clunky, slow, and difficult to maintain. By completely rearchitecting it, I improved everything from usability and performance to version control and distribution. The result was a modern, portable internal app that &#x27;s fast, intuitive, and far easier to maintain going forward.</p>
                             <h5 class="mt-4">UI/UX Improvements</h5>
-                            <p class="mb-4">The user interface was one of the first things I tackled. I replaced the outdated, static layout with a cleaner, more intuitive design using Tkinter &#x27;s TTK theming. Switching from absolute to relative positioning made the UI responsive to window layout edits. I consolidated the tool into a single window with a clear left-to-right, top-down workflow that guides users logically through the process. I also added help documentation and inline instructions to address the most common user questions, reducing reliance on                             outside explanation.</p>
+                            <p class="mb-4">The user interface was one of the first things I tackled. I replaced the outdated, static layout with a cleaner, more intuitive design using Tkinter &#x27;s TTK theming. Switching from absolute to relative positioning made the UI responsive to window layout edits. I consolidated the tool into a single window with a clear left-to-right, top-down workflow that guides users logically through the process. I also added help documentation and inline instructions to address the most common user questions, reducing reliance on outside explanation.</p>
                             <h5 class="mt-4">Engineering &amp;DevOps Enhancements</h5>
                             <p class="mb-4">
-                                The codebase was rewritten from the ground up using clean object-oriented practices. I introduced clear module separation, inheritance where appropriate, and type hints throughout the code to improve readability and debugging. Every function was refactored to isolate concerns and eliminate redundancy.<br>
-                                <br>I also set up Git version control and a proper release workflow — including semantic versioning (vX.X.X) — which let us track features, bugs, and updates clearly. To speed up the application, I replaced heavier libraries like pandas and numpy (which were used only lightly) with lean custom code, cutting load times and action response dramatically — in some cases by a factor of 5 to 10.
-                                        
+                                The codebase was rewritten from the ground up using clean object-oriented practices. I introduced clear module separation, inheritance where appropriate, and type hints throughout the code to improve readability and debugging. Every function was refactored to isolate concerns and eliminate redundancy.
+                                <br><br>
+                                I also set up Git version control and a proper release workflow — including semantic versioning (vX.X.X) — which let us track features, bugs, and updates clearly. To speed up the application, I replaced heavier libraries like pandas and numpy (which were used only lightly) with lean custom code, cutting load times and action response dramatically — in some cases by a factor of 5 to 10.
                             </p>
                             <h5 class="mt-4">Physics Logic Corrections</h5>
                             <p class="mb-4">While reviewing the tool &#x27;s core calculations, I found errors in the physics logic used for motor performance predictions. I reverse-engineered the intended formulas and rebuilt them to produce accurate outputs, aligning the tool with real-world performance expectations.</p>
@@ -138,7 +138,7 @@
             <div class="bg-light text-black position-relative project-container shadow-lg px-3">
                 <div class="container position-relative d-flex flex-column justify-content-center align-items-center text-center h-100">
                     <h1 class="mb-4">Online Texas Hold &#x27;em Desktop App</h1>
-                    <h4 class="mb-4">Server-connected, TCP, something, something</h4>
+                    <h4 class="mb-4">TCP-driven Online Poker with Live Chat</h4>
                     <img src="static/images/projects/holdem_app_cropped.png" alt="Project 1" class="img-fluid my-4 shadow-lg" style="max-width: 90%; border-radius: 1vh;">
                     <div class="row justify-content-center">
                         <div class="col-md-8 text-start">
@@ -162,7 +162,7 @@
                                 <br><br>
                                 I separated stateful game objects from functional game logic to ensure each piece had a single responsibility. Reusable interactions — like betting rounds, card distribution, and hand comparisons — were compartmentalized into small, composable functions.
                                 <br><br>
-                                One particularly fun challenge                             was optimizing the hand strength evaluation algorithm. It needed to be both accurate and efficient, especially as more players connected. The final result handled game state transitions smoothly even in concurrent environments
+                                One particularly fun challenge was optimizing the hand strength evaluation algorithm. It needed to be both accurate and efficient, especially as more players connected. The final result handled game state transitions smoothly even in concurrent environments
                             </p>
                             <h5 class="mt-4">Concurrency &amp;Live Interaction</h5>
                             <p class="mb-4">
