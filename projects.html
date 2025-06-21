@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portfolio</title>
+        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+        <script crossorigin="anonymous" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="/static/style2.css" rel='stylesheet'>
+        <link rel="icon" href="/static/images/logo/logo_16.ico" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    </head>
+    <body class='d-flex flex-column min-vh-100 bg-primary'>
+        <nav class="navbar navbar-expand-lg bg-primary fixed-top py-5">
+            <div class="container d-flex align-items-center justify-content-between">
+
+                <button class="navbar-toggler position-absolute top-0 end-0 m-4 btn btn-light d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="d-none d-lg-flex justify-content-center flex-grow-1">
+                    <ul class="navbar-nav">
+                        <li class="nav-item mx-3">
+                            <a class="nav-link text-black" href="/">Home</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link text-black" href="/projects/">Projects</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link text-black" href="/about/">About</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="collapse position-absolute end-0 bg-white rounded p-3 m-4 d-lg-none" id="mobileNav" style="top: 5vh;">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="/projects/">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="/about/">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="bg-light position-relative scroll-offset" id="xgboost" style="z-index: 4;">
+            <div class="bg-light text-black position-relative project-container shadow-lg px-3">
+                <div class="container position-relative d-flex flex-column justify-content-center align-items-center text-center h-100">
+                    <h1 class="mb-4">XGBoost Machine Noise Classifier</h1>
+                    <h4 class="mb-4"></h4>
+                    <img src="/static/" alt="Project 1" class="img-fluid my-4 shadow-lg" style="max-width: 90%; border-radius: 1vh;">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 text-start">
+                            <h5 class="mt-4">Overview</h5>
+                            <p class="mb-4">Blower testing traditionally relies on trained technicians to identify abnormal noises indicative of mechanical faults. However, the absence of skilled personnel presents a risk to quality control. This project introduces a machine learning-based approach to automate blower classification using FFT traces, reducing dependence on human interpretation and enabling iterative improvements to enhance classification accuracy.</p>
+                            <h5 class="mt-4">Data Acquisition &amp;Preprocessing</h5>
+                            <p class="mb-4">Sound is captured and converted into FFT traces using REW software, producing structured datasets with SPL magnitudes across frequencies. Since raw data contains more than 20,000 dimensions per trace, feature engineering is employed to extract meaningful characteristics such as statistical distributions (means, standard deviations, skews, peaks, entropies) across defined frequency bandwidths. This preprocessing step effectively reduces dimensionality to approximately 25 features while preserving classification-relevant information.</p>
+                            <h5 class="mt-4">Machine Learning Model: Gradient Boosting Classifier</h5>
+                            <p class="mb-4">Given the dataset &#x27;s tabular, numerical nature and relatively small sample size (~250 per week), a gradient boosting algorithm using XGBoost was selected for classification. Hyperparameter tuning is conducted via Optuna, leveraging Bayesian optimization and a Tree Parzen Estimator to identify the optimal model configuration. Stratified k-fold validation ensures proper label distribution during training. Final models consistently achieve ~98% accuracy.</p>
+                            <h5 class="mt-4">System Architecture &amp;Classification Pipeline</h5>
+                            <p class="mb-4">The system architecture and classification pipeline revolve around a local server responsible for data ingestion, validation, augmentation, and inference. When a blower &#x27;s sound trace is captured, it is encoded and transmitted to the server, where it undergoes validation to ensure data integrity and proper format. Feature extraction is performed to convert raw FFT traces into meaningful numerical representations suitable for classification. The prediction mechanism relies on multiple XGBoost models, where an ensemble polling approach is used to determine the final classification. The mode of the predicted labels across all models is selected as the final decision, with an additional confidence weighting applied to enhance reliability. If the confidence level falls below 75%, technician verification is required to validate or override the automated classification. Feedback from testers plays a crucial role in continuous model refinement, as each blower trace is assigned a job ID, allowing for accurate tracking and relabeling of samples when necessary.</p>
+                            <h5 class="mt-4">Continuous Model Improvement &amp;Adaptation</h5>
+                            <p class="mb-4">To maintain accuracy and adapt to evolving classification patterns, a structured model improvement strategy is implemented. The weakest-performing models, comprising the bottom 50% of the ensemble, are periodically replaced with newly trained versions. These fresh models are built using the most recent 500 labeled samples to ensure that the system continuously adapts to shifting classification trends. By maintaining a consistent pool of 20 models, the pipeline ensures stable and reliable predictive performance while integrating recent learnings from updated data. This approach helps counteract potential drift in the labeling process and ensures that only top-performing models contribute to production-grade classification</p>
+                            <h5 class="mt-4">User Interface &amp;Technician Interaction</h5>
+                            <p class="mb-4">A custom GUI integrates seamlessly with the testing process, displaying classification results and confidence metrics. Technicians can manually validate outputs when required and submit feedback in batch mode. This enables ongoing optimization while streamlining the user experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-light position-relative scroll-offset" id="sales" style="z-index: 3;">
+            <div class="bg-light text-black position-relative project-container shadow-lg px-3">
+                <div class="container position-relative d-flex flex-column justify-content-center align-items-center text-center h-100">
+                    <h1 class="mb-4">Sales Engineering Digital Assistant</h1>
+                    <h4 class="mb-4">Enabling lead conversions with data-driven solutions</h4>
+                    <img src="/static/images/projects/sales_app_screenshot.png" alt="Project 1" class="img-fluid my-4 shadow-lg" style="max-width: 90%; border-radius: 1vh;">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 text-start">
+                            <h5 class="mt-4">Overview</h5>
+                            <p class="mb-4">I took on the task of rewriting a legacy engineering calculator used by our team to evaluate and recommend product configurations. The original tool was clunky, slow, and difficult to maintain. By completely rearchitecting it, I improved everything from usability and performance to version control and distribution. The result was a modern, portable internal app that &#x27;s fast, intuitive, and far easier to maintain going forward.</p>
+                            <h5 class="mt-4">UI/UX Improvements</h5>
+                            <p class="mb-4">The user interface was one of the first things I tackled. I replaced the outdated, static layout with a cleaner, more intuitive design using Tkinter &#x27;s TTK theming. Switching from absolute to relative positioning made the UI responsive to window layout edits. I consolidated the tool into a single window with a clear left-to-right, top-down workflow that guides users logically through the process. I also added help documentation and inline instructions to address the most common user questions, reducing reliance on                             outside explanation.</p>
+                            <h5 class="mt-4">Engineering &amp;DevOps Enhancements</h5>
+                            <p class="mb-4">
+                                The codebase was rewritten from the ground up using clean object-oriented practices. I introduced clear module separation, inheritance where appropriate, and type hints throughout the code to improve readability and debugging. Every function was refactored to isolate concerns and eliminate redundancy.<br>
+                                <br>I also set up Git version control and a proper release workflow — including semantic versioning (vX.X.X) — which let us track features, bugs, and updates clearly. To speed up the application, I replaced heavier libraries like pandas and numpy (which were used only lightly) with lean custom code, cutting load times and action response dramatically — in some cases by a factor of 5 to 10.
+                                        
+                            </p>
+                            <h5 class="mt-4">Physics Logic Corrections</h5>
+                            <p class="mb-4">While reviewing the tool &#x27;s core calculations, I found errors in the physics logic used for motor performance predictions. I reverse-engineered the intended formulas and rebuilt them to produce accurate outputs, aligning the tool with real-world performance expectations.</p>
+                            <h5 class="mt-4">Deployment &amp;Portability</h5>
+                            <p class="mb-4">To make the tool truly portable, I packaged it into a standalone executable using PyInstaller. It no longer requires a Python installation or any external libraries — just a single .zip file that can be downloaded, saved, or moved anywhere.</p>
+                            <h5 class="mt-4">Team Feedback &amp;Collaboration</h5>
+                            <p class="mb-4">I collected feature requests and bug reports from engineers and salespeople, converting them into technical tickets. These updates were organized into planned releases, giving the team visibility into what was coming and allowing us to prioritize based on real needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-light position-relative scroll-offset" id="iiot" style="z-index: 2;">
+            <div class="bg-light text-black position-relative project-container shadow-lg px-3">
+                <div class="container position-relative d-flex flex-column justify-content-center align-items-center text-center h-100">
+                    <h1 class="mb-4">IIOT Test Data Pipeline</h1>
+                    <h4 class="mb-4">Automated production test data capture with an cloud-deployed ETL pipeline</h4>
+                    <img src="/static/images/projects/iiot_flow.png" alt="Project 1" class="img-fluid my-4 shadow-lg" style="max-width: 90%; border-radius: 1vh;">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 text-start">
+                            <h5 class="mt-4">Overview</h5>
+                            <p class="mb-4">I designed and built an industrial-grade cloud-based test data pipeline for Airtech Group, connecting automated testing equipment on the factory floor to a cloud-based reporting service. The system captures, validates, and routes live production data using MQTT, HTTP, and serverless compute — all deployed securely on Microsoft Azure. The goal: full automation of test data capture and integration with our ERP, enabling faster analytics, fewer manual errors, and a modular pipeline ready to scale across products.</p>
+                            <h5 class="mt-4">System Architecture &amp;Flow Design</h5>
+                            <p class="mb-4">
+                                The full system follows a publish-subscribe architecture built on modern cloud infrastructure. I architected the end-to-end flow:
+                                <br><br>
+                                PLC → Mosquitto Broker → Node-RED → Azure Durable Function → Reporting Service
+                                <br><br>
+                                I deployed a custom Azure Virtual Machine to host both the Mosquitto MQTT broker and a Node-RED instance. The broker serves as a reliable intermediary between test equipment and the cloud, while Node-RED subscribes to incoming MQTT messages and triggers cloud functions over HTTP, acting as the bridge between edge data and centralized processing. To ensure stability and secure communication across this network, I configured DNS settings, firewall rules, and SSH access controls on the VM. Every connection point was tuned for consistent uptime and fault tolerance. Resource selection across the Azure environment was made with long-term efficiency in mind — I provisioned the lowest viable specs to meet performance targets while tagging and organizing resources to enable granular cost tracking and future scalability.
+                            </p>
+                            <h5 class="mt-4">Cloud Application Development</h5>
+                            <p class="mb-4">To orchestrate serverless workloads efficiently, I used Azure Storage Queues to schedule and throttle Operations1 API interactions. Each queue entry acts as a unique function instance, registered and managed to respect the service &#x27;s rate limits. In parallel, Azure Table Storage was leveraged to cache product metadata such as serial number mappings, which significantly reduced redundant report lookups and API traffic. The cache system was partitioned by product type for quick, context-aware access. The overall backend was built as a modular, metadata-driven architecture, allowing the system to be easily extended to support new product lines with minimal changes to logic — all by simply adding new config entries rather than rewriting code.</p>
+                            <h5 class="mt-4">Data Validation &amp;Error Handling</h5>
+                            <p class="mb-4">I implemented input validation as the first line of defense in the pipeline, ensuring all incoming data conformed to expected JSON schemas and verified serial number formats using regex before any downstream processing was triggered. To support long-term reliability and debuggability, I built in detailed error logging across all system layers, capturing contextual information at each failure point. The architecture was also designed for resilience — handling partial failures gracefully, such as API timeouts or dropped MQTT messages, without compromising the overall flow. Failed function instances were automatically removed from the queue, and cleanup procedures ensured that transient issues wouldn &#x27;t create bottlenecks or inconsistencies across the pipeline.</p>
+                            <h5 class="mt-4">Cloud Application Development</h5>
+                            <p class="mb-4">To protect sensitive production data and maintain secure service-to-service communication, I implemented SSL/TLS encryption across the pipeline and issued client certificates for mutual authentication. Azure Role-Based Access Control (RBAC) was configured meticulously to define the scope of each service &#x27;s influence, ensuring only approved resources could communicate or manipulate data. This created a hardened security model across the entire IIoT system, from field-level devices to the cloud.</p>
+                            <h5 class="mt-4">Cloud Application Development</h5>
+                            <p class="mb-4">Finally, I extended the solution to interface directly with the company &#x27;s ERP by generating structured SharePoint drop files upon test report completion. These files act as automation triggers for Oracle JDE, launching downstream actions in real-time without manual intervention. This full-circle integration enables traceability from the exact moment a test is run on the factory floor all the way through to enterprise decision-making systems, effectively closing the loop between operations and business intelligence.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-black position-relative scroll-offset" id="holdem" style="z-index: 1;">
+            <div class="bg-light text-black position-relative project-container shadow-lg px-3">
+                <div class="container position-relative d-flex flex-column justify-content-center align-items-center text-center h-100">
+                    <h1 class="mb-4">Online Texas Hold &#x27;em Desktop App</h1>
+                    <h4 class="mb-4">Server-connected, TCP, something, something</h4>
+                    <img src="/static/images/projects/holdem_app_cropped.png" alt="Project 1" class="img-fluid my-4 shadow-lg" style="max-width: 90%; border-radius: 1vh;">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 text-start">
+                            <h5 class="mt-4">Overview</h5>
+                            <p class="mb-4">This project began as a deep dive into multiplayer systems and networked application architecture. I built a full-featured Texas Hold &#x27;em poker game from scratch, creating both a desktop client interface and a custom server using low-level TCP communication. The app allows multiple users to play in parallel game rooms, interact through real-time chat, and execute game actions with a seamless user experience. It was a rewarding challenge in concurrent programming, object-oriented design, and real-time data flow.</p>
+                            <h5 class="mt-4">UI/UX Design</h5>
+                            <p class="mb-4">
+                                Using the PySide library, I designed a dynamic desktop interface that allows players to create, join, and leave game rooms, interact through live chat, and participate in fully visualized poker rounds.
+                                <br><br>
+                                I constructed the UI through a hierarchical inheritance model — reusing and extending base PySide elements to maintain consistency and reduce redundant code. The result was a clean, responsive layout that mapped intuitively to the user journey: from the lobby to active play and back again.
+                            </p>
+                            <h5 class="mt-4">Custom Server Architecture</h5>
+                            <p class="mb-4">
+                                At the heart of the application is a custom-built TCP server designed for live, multi-user interaction. I implemented two-way communication between clients and the server using concurrent read/write threads over TCP sockets. A low-level, custom communication protocol handles serialization and routing, using JSON as the format for structured messaging.
+                                <br><br>
+                                To keep the architecture clean and modular, I built a message router system that serves as an intermediary between isolated components. This design eliminated complex direct dependencies and avoided circular imports, allowing for better scalability and testability.
+                            </p>
+                            <h5 class="mt-4">Game Logic &amp;Object Modeling</h5>
+                            <p class="mb-4">
+                                The game logic is built entirely around object-oriented programming, with SOLID principles guiding every layer. I modeled the entire game environment through well-structured objects: players, game rooms, cards, decks, and hands.
+                                <br><br>
+                                I separated stateful game objects from functional game logic to ensure each piece had a single responsibility. Reusable interactions — like betting rounds, card distribution, and hand comparisons — were compartmentalized into small, composable functions.
+                                <br><br>
+                                One particularly fun challenge                             was optimizing the hand strength evaluation algorithm. It needed to be both accurate and efficient, especially as more players connected. The final result handled game state transitions smoothly even in concurrent environments
+                            </p>
+                            <h5 class="mt-4">Concurrency &amp;Live Interaction</h5>
+                            <p class="mb-4">
+                                From the beginning, I wanted the game to feel alive — not just visually, but structurally. I used threaded concurrency to maintain persistent socket connections for each client, allowing the server to push updates in real time.
+                                <br><br>
+                                Players can join a room and immediately start receiving game updates and chat messages without manual polling or blocking interactions. The concurrent design ensures that multiple games can run independently, without lag or interference.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-black text-light py-5 mt-auto w-100">
+            <div class="container">
+                <h2 class="fw-bold mb-4 text-start">Reach Out</h2>
+                <p class="fs-4 mb-1 text-start">Brian Vivolo</p>
+                <div class="mb-4 text-start">
+                    <a href="mailto:brian.vivolo@gmail.com" class="mb-1 text-light">brian.vivolo@gmail.com</a>
+                    <p>(973) 908-2452</p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
