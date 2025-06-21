@@ -1,0 +1,243 @@
+body {
+    font-family: 'Lexend', sans-serif;
+    color: #000000;
+    padding-top: 70px;
+    overflow-x: hidden;
+}
+
+.navbar {
+    background-color: #1f1f1f;
+    min-height: 70px;
+}
+
+.logo {
+    max-height: 70px;
+    min-height: 50px;
+    height: 12vw;
+    flex-shrink: 0;
+}
+
+.bg-logo {
+    height: 100%; 
+    width: 100%; 
+    background-size: cover; 
+    background-position: center;
+    transform: rotate(30deg);
+    opacity: 0.05;
+}
+
+.navbar-brand span {
+    font-size: 2rem; /* Adjust font size for the name */
+    color: #000000; /* Ensure the text color matches the design */
+}
+
+.navbar-brand, .nav-link {
+    color: #000000 !important;
+}
+
+.nav-link:hover {
+    color: #00bcd4 !important;
+}
+
+.navbar-toggler {
+    margin-top: 5px;
+}
+
+.tagline {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(5px); 
+    border: none; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #1f1f1f;
+    color: #aaaaaa;
+    flex-shrink: 0;
+}
+
+.bg-primary {
+    background-color: rgb(150, 200, 255) !important;
+}
+
+.bg-secondary {
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.bg-dark {
+    background-color: rgb(0, 0, 0) !important;
+}
+/* Optional: Adjust headings for better hierarchy */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600; /* Make headings bold */
+    line-height: 1.4; /* Adjust line height for headings */
+}
+
+h1 {
+    font-size: 3em;
+}
+
+.navbar-toggler {
+    border: none; /* Remove the default border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    background-color: #ffffff; /* Ensure the button is visible on the navbar */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    /* Custom icon for better visibility */
+}
+
+.collapse.bg-white {
+    z-index: 1050; /* Ensure the dropdown menu appears above other elements */
+}
+
+/* Style for navigation links */
+.navbar-nav .nav-link {
+    position: relative; /* Establish a positioning context for the pseudo-element */
+    color: #000000 !important; /* Ensure the text color is consistent */
+    text-decoration: none; /* Remove default underline */
+    font-weight: 500; /* Slightly bold for better readability */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Pseudo-element for the underline effect */
+.navbar-nav .nav-link::before {
+    content: ''; /* Create the pseudo-element */
+    position: absolute;
+    bottom: 0; /* Position it at the bottom of the link */
+    left: 50%; /* Start at the center */
+    width: 0; /* Initially, the underline is not visible */
+    height: 2px; /* Thickness of the underline */
+    background-color: #000000; /* Black underline */
+    transition: width 0.3s ease, left 0.3s ease; /* Smoothly grow the underline */
+}
+
+/* Hover effect for the underline */
+.navbar-nav .nav-link:hover::before {
+    width: 100%; /* Expand the underline to the full width */
+    left: 0; /* Move the starting point to the left */
+}
+
+/* Optional: Active link styling */
+.navbar-nav .nav-link.active {
+    color: #000000 !important; /* Keep the active link color consistent */
+    font-weight: bold; /* Highlight the active link */
+}
+
+.navbar-nav .nav-link.active::before {
+    width: 100%; /* Keep the underline visible for the active link */
+    left: 0;
+}
+
+/* Ensure the mobile navigation box is distinct and visible */
+.collapse.bg-white {
+    z-index: 1050; /* Ensure the dropdown menu appears above other elements */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Add a subtle border */
+}
+
+/* Animate the dashed SVG path */
+.animated-path path {
+    stroke-dasharray: 10, 10; /* Define the dash pattern */
+    stroke-dashoffset: 0; /* Initial offset */
+    animation: dash-animation 20s linear infinite; /* Animate the offset */
+}
+
+/* Keyframes for the dash animation */
+@keyframes dash-animation {
+    0% {
+        stroke-dashoffset: 0; /* Start at the initial position */
+    }
+    100% {
+        stroke-dashoffset: 1000; /* Move the dashes along the path */
+    }
+}
+
+.animate-marquee {
+    display: flex;
+    gap: 2.5rem;
+    animation: marquee 200s linear infinite;
+    will-change: transform;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-1000%);
+    }
+}
+
+.profile-photo {
+    bottom: 0;
+    max-width: 300px;
+    height: auto;
+    z-index: 1;
+}
+
+.tech-icon {
+    height: 80px;
+    object-fit: contain;
+    margin: 20px;
+}
+
+.project-container {
+    min-height: 100vh; 
+    padding-top: 7rem; 
+    padding-bottom: 8rem; 
+    border-bottom-left-radius: 4rem; 
+    border-bottom-right-radius: 4rem;
+}
+
+.scroll-offset {
+    scroll-margin-top: 80px;
+}
+
+.portrait {
+    position: relative;
+    max-width: 100%;
+    height: auto;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    from, to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: white;
+    }
+}
+
+.about-photo {
+    max-width: 30vh; 
+    height: auto; 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-radius: 15px;
+}
+
+.btn-dark {
+    background-color: black;
+}
